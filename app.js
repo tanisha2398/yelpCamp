@@ -1,36 +1,33 @@
 var express     = require("express"),
     app         =express(),
     mongoose    =require("mongoose"), 
-    bodyparser  =require("body-parser");
-
+    bodyparser  =require("body-parser"),
+    seedDB      =require("./seeds"),
+    campGround  =require("./models/campground");
+    Comment     =require("./models/comment");
+seedDB();
 mongoose.connect("mongodb://localhost/yelpcamp",{useNewUrlParser:true});
 app.set("view engine","ejs");
 app.use(bodyparser.urlencoded({extended: true}));
 
 //SCHEMA SETUP
-var campSchema=new mongoose.Schema({
-    name:String,
-    image:String,
-    description:String
-});
 
-var campGround=mongoose.model("campGround",campSchema);
 
-campGround.create(
-            {
-                name:"Badoli",
-                image:"https://farm5.staticflickr.com/4298/36041654986_53f1d04a4e.jpg",
-                description:"this is beautiful place for camp with No water"
+// campGround.create(
+//             {
+//                 name:"Badoli-2",
+//                 image:"https://farm5.staticflickr.com/4298/36041654986_53f1d04a4e.jpg",
+//                 description:"this is beautiful place for camp with No water"
                 
-            },function(err,camp){
-                        if(err){
-                            console.log("ERROR");
-                        }
-                        else{
-                            console.log("camp is saved to DB");
-                            console.log(camp);
-                        }
-                    });
+//             },function(err,camp){
+//                         if(err){
+//                             console.log("ERROR");
+//                         }
+//                         else{
+//                             console.log("camp is saved to DB");
+//                             console.log(camp);
+//                         }
+//                     });
 
 
 
@@ -88,11 +85,12 @@ app.post("/campground",function(req,res){
 
 app.get("/campground/:id",function(req, res) {
     //find campground with provided ID
-    campGround.findById(req.params.id,function(err,foundCampground){
+    campGround.findById(req.params.id).populate("comments").exec(function(err,foundCampground){
         if(err){
             console.log(err);
         }
         else{
+           // console.log(foundCampground);
             //render show template with that campground
             res.render("show",{campground:foundCampground});
         }
@@ -100,6 +98,7 @@ app.get("/campground/:id",function(req, res) {
 
 });
 
-app.listen(process.env.PORT,process.env.IP,function(){
-    console.log("server started");
+const port = 3001;
+app.listen(port ,() => {
+    console.log(`Server started at port ${port}`);
 });
