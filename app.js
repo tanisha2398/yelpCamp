@@ -46,7 +46,7 @@ app.get("/campground",function(req,res){
                 }
             else{
                     //console.log("ALL THE CAMPGROUNDS...........");
-                     res.render("index",{campground:camps});
+                     res.render("campgrounds/index",{campground:camps});
                 }
     });
   
@@ -56,7 +56,7 @@ app.get("/campground",function(req,res){
 //NEW-display form to add new campground
 
 app.get("/campground/new",function(req, res) {
-   res.render("new") 
+   res.render("campgrounds/new") 
 });
 
 //CREATE- add new campground to DB
@@ -92,10 +92,25 @@ app.get("/campground/:id",function(req, res) {
         else{
            // console.log(foundCampground);
             //render show template with that campground
-            res.render("show",{campground:foundCampground});
+            res.render("campgrounds/show",{campground:foundCampground});
         }
     });
 
+});
+
+
+//==============================
+//COMMMENTS ROUTE
+//==============================
+app.get("/campground/:id/comments/new",(req,res)=>{
+    campGround.findById(req.params.id,(err,campground)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.render("comments/new",{campground:campground});
+        }
+    });
+    
 });
 
 const port = 3001;
