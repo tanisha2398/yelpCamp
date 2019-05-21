@@ -1,0 +1,14 @@
+.thumbnail img{
+    width: 100%;
+}
+body{
+    background: pink;
+}
+
+.thumbnail{
+    padding: 0;
+}
+
+.caption-full{
+    padding: 9px;
+}

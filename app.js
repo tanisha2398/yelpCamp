@@ -9,6 +9,7 @@ seedDB();
 mongoose.connect("mongodb://localhost/yelpcamp",{useNewUrlParser:true});
 app.set("view engine","ejs");
 app.use(bodyparser.urlencoded({extended: true}));
+app.use(express.static(__dirname+"/public"));
 
 //SCHEMA SETUP
 
