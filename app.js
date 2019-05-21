@@ -113,6 +113,27 @@ app.get("/campground/:id/comments/new",(req,res)=>{
     
 });
 
+//CREATE COMMENT
+app.post("/campground/:id/comments",(req,res)=>{
+    campGround.findById(req.params.id,(err,campground)=>{
+        if(err){
+            res.redirect("/campground")
+        }else{
+            Comment.create(req.body.comment,(err,newComment)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    campground.comments.push(newComment);
+                    campground.save();
+                    res.redirect("/campground/"+campground._id);
+                    
+                   
+                }
+            });
+        }
+    });
+  
+});
 const port = 3001;
 app.listen(port ,() => {
     console.log(`Server started at port ${port}`);
