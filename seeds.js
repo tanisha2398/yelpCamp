@@ -47,7 +47,7 @@ function seedDB()
                         campground.save();
                         console.log("created comment")
                     }
-                })
+                });
             }
         });
         

@@ -13,7 +13,7 @@ var express     = require("express"),
 var commentRoutes=require("./routes/comments"),
     campgroundRoutes=require("./routes/campgrounds"),
     authRoutes=require("./routes/index");
-seedDB();
+//seedDB();//seed the database
 mongoose.connect("mongodb://localhost/yelpcamp",{useNewUrlParser:true});
 app.set("view engine","ejs");
 app.use(bodyparser.urlencoded({extended: true}));
