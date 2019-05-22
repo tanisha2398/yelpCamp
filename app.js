@@ -15,6 +15,19 @@ app.set("view engine","ejs");
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(express.static(__dirname+"/public"));
 
+
+//PASSPORT CO(NFIGURATION
+app.use(require("express-session")({
+    secret:"tanisha negi is best",
+    resave:false,
+    saveUninitialized:false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 //SCHEMA SETUP
 
 
@@ -139,6 +152,28 @@ app.post("/campground/:id/comments",(req,res)=>{
     });
   
 });
+//=======================
+//AUTHENTICATION ROUTE
+//========================
+
+//show register form
+app.get("/register",(req,res)=>{
+    res.render("register");
+});
+//handle sign up logic
+app.post("/register",(req,res)=>{
+    var newUser=new User({username:req.body.username});
+    User.register(newUser,req.body.password,(err,user)=>{
+        if(err){
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req,res,function(){
+            res.redirect("/campground");
+        });
+    });
+});
+
 const port = 3001;
 app.listen(port ,() => {
     console.log(`Server started at port ${port}`);
