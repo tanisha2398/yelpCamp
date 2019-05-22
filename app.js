@@ -174,6 +174,18 @@ app.post("/register",(req,res)=>{
     });
 });
 
+//show login form
+app.get("/login",(req,res)=>{
+    res.render("login");
+});
+//handle login logic
+app.post("/login",passport.authenticate("local",{
+    successRedirect:"/campground",
+    failureRedirect:"/login"
+}),(req,res)=>{
+
+});
+
 const port = 3001;
 app.listen(port ,() => {
     console.log(`Server started at port ${port}`);
