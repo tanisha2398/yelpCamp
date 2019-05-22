@@ -28,6 +28,10 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use((req,res,next)=>{
+    res.locals.currentUser=req.user;
+    next();
+});
 //SCHEMA SETUP
 
 
@@ -56,7 +60,7 @@ app.get("/",function(req,res){
 //INDEX- display list of all campgrounds
 
 app.get("/campground",function(req,res){
-    
+   // console.log(req.user);
     //retrieve campground from db
     campGround.find({},function(err,camps){
          if(err){
@@ -64,7 +68,7 @@ app.get("/campground",function(req,res){
                 }
             else{
                     //console.log("ALL THE CAMPGROUNDS...........");
-                     res.render("campgrounds/index",{campground:camps});
+                     res.render("campgrounds/index",{campground:camps,currentUser:req.user});
                 }
     });
   
@@ -187,6 +191,7 @@ app.post("/login",passport.authenticate("local",{
 });
 //add logout route
 app.get("/logout",(req,res)=>{
+    req.logout();
     res.redirect("/campground");
 });
 
