@@ -1,6 +1,6 @@
 var mongoose=require("mongoose"),
-    campGround=require("./models/campground");
- 
+    campGround=require("./models/campground"),
+    Comment     =require("./models/comment");
 var data = [
         {
             name: "Cloud's Rest", 
@@ -21,7 +21,7 @@ var data = [
 function seedDB()
 {
     //REMOVE ALL CAMPGROUNDS
-    campGround.remove({},(err)=>{
+    campGround.deleteMany({},(err)=>{
      if(err){
         console.log(err);
         }

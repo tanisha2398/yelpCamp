@@ -2,8 +2,12 @@ var express     = require("express"),
     app         =express(),
     mongoose    =require("mongoose"), 
     bodyparser  =require("body-parser"),
+    passport    =require("passport"),
+    LocalStrategy=require("passport-local"),
+    passportLocalMongoose=require("passport-local-mongoose"),
     seedDB      =require("./seeds"),
-    campGround  =require("./models/campground");
+    campGround  =require("./models/campground"),
+    User        =require("./models/user"),
     Comment     =require("./models/comment");
 seedDB();
 mongoose.connect("mongodb://localhost/yelpcamp",{useNewUrlParser:true});
