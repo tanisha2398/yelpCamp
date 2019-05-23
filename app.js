@@ -4,6 +4,7 @@ var express     = require("express"),
     bodyparser  =require("body-parser"),
     passport    =require("passport"),
     LocalStrategy=require("passport-local"),
+    methodOverride=require("method-override"),
     passportLocalMongoose=require("passport-local-mongoose"),
     seedDB      =require("./seeds"),
     campGround  =require("./models/campground"),
@@ -16,6 +17,7 @@ var commentRoutes=require("./routes/comments"),
 //seedDB();//seed the database
 mongoose.connect("mongodb://localhost/yelpcamp",{useNewUrlParser:true});
 app.set("view engine","ejs");
+app.use(methodOverride("_method"));
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(express.static(__dirname+"/public"));
 

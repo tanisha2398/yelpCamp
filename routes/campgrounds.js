@@ -70,6 +70,24 @@ router.get("/",function(req,res){
      });
  
  });
+
+//Edit campgroud
+router.get("/:id/edit",(req,res)=>{
+    campGround.findById(req.params.id,(err,foundCampground)=>{
+        if(err){
+            res.redirect("/campground");
+        }else{
+            res.render("campgrounds/edit",{campground:foundCampground}); 
+        }
+    });
+  
+});
+
+//Update campground
+
+
+
+
  //middleware
 
 function isLoggedIn(req,res,next){
