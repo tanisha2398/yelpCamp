@@ -16,6 +16,7 @@ var commentRoutes=require("./routes/comments"),
     authRoutes=require("./routes/index");
 //seedDB();//seed the database
 mongoose.connect("mongodb://localhost/yelpcamp",{useNewUrlParser:true});
+mongoose.set('useFindAndModify', false)
 app.set("view engine","ejs");
 app.use(methodOverride("_method"));
 app.use(bodyparser.urlencoded({extended: true}));

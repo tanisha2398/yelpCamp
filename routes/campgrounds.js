@@ -84,7 +84,15 @@ router.get("/:id/edit",(req,res)=>{
 });
 
 //Update campground
-
+router.put("/:id",(req,res)=>{
+    campGround.findByIdAndUpdate(req.params.id,req.body.campground,(err,updatedCampground)=>{
+        if(err){
+            res.redirect("/campground");
+        }else{
+            res.redirect("/campground/"+req.params.id);
+        }
+    });
+});
 
 
 
