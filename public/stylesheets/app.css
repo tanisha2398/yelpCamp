@@ -1,9 +1,6 @@
 .thumbnail img{
     width: 100%;
-}
-body{
-    background: pink;
-}
+
 
 .thumbnail{
     padding: 0;
@@ -11,4 +8,7 @@ body{
 
 .caption-full{
     padding: 9px;
+}
+#delete-form{
+    display: inline;
 }
