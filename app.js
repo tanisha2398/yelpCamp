@@ -7,6 +7,7 @@ var express     = require("express"),
     methodOverride=require("method-override"),
     passportLocalMongoose=require("passport-local-mongoose"),
     seedDB      =require("./seeds"),
+    flash       =require("connect-flash"),
     campGround  =require("./models/campground"),
     User        =require("./models/user"),
     Comment     =require("./models/comment");
@@ -21,6 +22,7 @@ app.set("view engine","ejs");
 app.use(methodOverride("_method"));
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(express.static(__dirname+"/public"));
+app.use(flash());
 
 
 //PASSPORT CO(NFIGURATION
