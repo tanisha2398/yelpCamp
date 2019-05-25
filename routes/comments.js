@@ -27,7 +27,7 @@ router.post("/",middleware.isLoggedIn,(req,res)=>{
         }else{
             Comment.create(req.body.comment,(err,newComment)=>{
                 if(err){
-                    //req.flash("error","Something went Wrong");
+                    req.flash("error","Something went Wrong");
                     console.log(err);
                 }else{
                     //add username and id to comment
@@ -51,6 +51,11 @@ router.post("/",middleware.isLoggedIn,(req,res)=>{
 
 //comment edit route
 router.get("/:comment_id/edit",middleware.checkCommentOwnership,(req,res)=>{
+    campGround.findById(req.params.id,(err,foundCampground)=>{
+       if(err || !foundCampground){
+           req.flash("error","Campground not found");
+            return res.redirect("back");
+        } 
     
     Comment.findById(req.params.comment_id,(err,foundComment)=>{
         if(err){
@@ -60,7 +65,7 @@ router.get("/:comment_id/edit",middleware.checkCommentOwnership,(req,res)=>{
         }
     });
 });
-
+});
 //comment update
 router.put("/:comment_id",middleware.checkCommentOwnership,(req,res)=>{
     Comment.findByIdAndUpdate(req.params.comment_id,req.body.comment,(err,updatedComment)=>{
