@@ -16,13 +16,15 @@ var commentRoutes=require("./routes/comments"),
     campgroundRoutes=require("./routes/campgrounds"),
     authRoutes=require("./routes/index");
 //seedDB();//seed the database
-mongoose.connect("mongodb+srv://tanishanegipro:tanisha23@cluster0-y8fdu.mongodb.net/test?retryWrites=true",{
-    useNewUrlParser:true,
-    useCreateIndex:true}).then(() => {
-        console.log('connected to DB');
-    }).catch(err =>{
-        console.log('ERROR:',err.message);
-    });
+
+mongoose.connect(process.env.DATABASEURL,{useNewUrlParser:true});
+// mongoose.connect("mongodb+srv://tanishanegipro:tanisha23@cluster0-y8fdu.mongodb.net/test?retryWrites=true",{
+    // useNewUrlParser:true,
+    // useCreateIndex:true}).then(() => {
+    //     console.log('connected to DB');
+    // }).catch(err =>{
+    //     console.log('ERROR:',err.message);
+    // });
 mongoose.set('useFindAndModify', false)
 app.set("view engine","ejs");
 app.use(methodOverride("_method"));
