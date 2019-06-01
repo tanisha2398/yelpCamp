@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 var express = require("express"),
   app = express(),
   mongoose = require("mongoose"),
@@ -12,7 +14,6 @@ var express = require("express"),
   User = require("./models/user"),
   Comment = require("./models/comment");
 
-require("dotenv").config();
 //requiring routes
 var commentRoutes = require("./routes/comments"),
   campgroundRoutes = require("./routes/campgrounds"),
