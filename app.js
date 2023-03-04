@@ -19,17 +19,17 @@ var commentRoutes = require("./routes/comments"),
   campgroundRoutes = require("./routes/campgrounds"),
   authRoutes = require("./routes/index");
 //seedDB();//seed the database
-var url = process.env.DATABASEURL || "mongodb://localhost/yelpcamp";
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/yelpcamp";
 // mongoose.connect(process.env.DATABASEURL,{useNewUrlParser:true});
 mongoose
   .connect(url, {
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
   })
   .then(() => {
     console.log("connected to DB");
   })
-  .catch(err => {
+  .catch((err) => {
     console.log("ERROR:", err.message);
   });
 mongoose.set("useFindAndModify", false);
@@ -44,7 +44,7 @@ app.use(
   require("express-session")({
     secret: "tanisha negi is best",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
   })
 );
 app.use(passport.initialize());
